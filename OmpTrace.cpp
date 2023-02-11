@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     for (int m = 0; m < LARGEUR; m++)  // Thread1 Thread2 etc.
     {
         omp_set_num_threads(atoi(argv[2]));
-        #pragma omp parallel for
+        #pragma omp parallel for 
         for (int n = 0; n < HAUTEUR; n++)
         {
             switch(omp_get_thread_num()){
