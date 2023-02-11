@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
     {
         for (int n = 0; n < HAUTEUR; n++)
         {
-            pixel.Blue = 192;
-            pixel.Green = 255 ;
-            pixel.Red = 192;
+            pixel.Blue = 0;
+            pixel.Green = 0 ;
+            pixel.Red = 255;
 
             img.SetPixel(m, n, pixel);
         } // columns
