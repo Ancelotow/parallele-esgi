@@ -19,13 +19,13 @@ int main(int argc, char* argv[])
     if (argc < 3)
         goto finally;
     img.SetSize(LARGEUR, HAUTEUR);
-    omp_set_num_threads(argv[2]);
     for (int m = 0; m < LARGEUR; m++)  // Thread1 Thread2 etc.
     {
+        omp_set_num_threads(atoi(argv[2]));
         #pragma omp parallel for
         for (int n = 0; n < HAUTEUR; n++)
         {
-            switch(omp_get_num_threads()){
+            switch(omp_get_thread_num()){
                 case 0:
                     pixel.Blue = 0;
                     pixel.Green = 0;
@@ -60,12 +60,12 @@ int main(int argc, char* argv[])
                     pixel.Blue = 255;
                     pixel.Green = 255;
                     pixel.Red = 255;
-                    break;  
-                case 7:
+                    break;
+                default:
                     pixel.Blue = 0;
                     pixel.Green = 0;
                     pixel.Red = 0;
-                    break;                   
+                    break;                      
             }
 
             img.SetPixel(m, n, pixel);
