@@ -1,0 +1,31 @@
+static : il prend la nombre d'itération totale (hauteur de l'écran)
+             et le divise par le nombre de thread 
+                        => pour donner l'image (nbr de block)
+
+Par exemple, si nous avons une boucle for qui effectue 100 itérations,
+et que nous avons 4 threads, le pragma "schedule(static, 2)" répartirait 
+les itérations de la boucle entre les threads de la manière suivante :
+
+    Thread 1 : sous-itérations 0 à 1, 8 à 9, 16 à 17, ..., 96 à 97
+    Thread 2 : sous-itérations 2 à 3, 10 à 11, 18 à 19, ..., 98 à 99
+    Thread 3 : sous-itérations 4 à 5, 12 à 13, 20 à 21, ..., 94 à 95
+    Thread 4 : sous-itérations 6 à 7, 14 à 15, 22 à 23, ..., 92 à 93  
+
+    Plus le chiffre est grand moins y a de bande de couleur 
+
+On calcule avec **HAUTEUR/argv[2]** le nombre de bande de couleur 
+                                    (nbr d'itération d'un sous block) 
+  => nbr d'itération donnée par le schedule si pas de paramètre                                                           
+
+dynamic : nombre d'itération distribué dynamiquement 
+
+guided : plus le paamètre est grand, moins il y a de bande de couleur 
+    Chaque thread traite un bloc à la fois et reçoit un nouveau bloc dès qu'il 
+        a fini le précédent. 
+    La taille des blocs diminue progressivement au fur et à mesure que les threads
+        terminent leur travail.
+
+
+runtime : spécifier le choix de la politique d'ordonnancement de la boucle 
+            à l'exécution, plutôt qu'au moment de la compilation à l'aide de 
+            la variable OMP_SCHEDULE
